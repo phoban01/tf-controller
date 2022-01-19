@@ -24,4 +24,4 @@ jobs:
             ${{ runner.os }}-go-
       - name: Run tests
         run: |
-          make test | richgo
+          make test | richgo testfilter
