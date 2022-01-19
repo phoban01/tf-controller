@@ -51,7 +51,7 @@ func init() {
 }
 
 const (
-	timeout  = time.Second * 10
+	timeout  = time.Second * 30
 	interval = time.Millisecond * 500
 )
 
