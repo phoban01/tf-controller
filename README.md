@@ -1,15 +1,19 @@
 # TF-controller for Flux: GitOps everything at your own pace
 
-TF-controller is an experimental controller for Flux to reconcile Terraform resources in the GitOps-way. 
-With the power of Flux together with Terraform, TF-controller allows you to GitOps everything, in the Kubernetes and 
+[![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/4786/badge)](https://bestpractices.coreinfrastructure.org/projects/4786)
+[![test](https://github.com/phoban01/tf-controller/workflows/test/badge.svg)](https://github.com/phoban01/tf-controller/actions)
+[![report](https://goreportcard.com/badge/github.com/phoban01/tf-controller)](https://goreportcard.com/report/github.com/phoban01/tf-controller)
+
+TF-controller is an experimental controller for Flux to reconcile Terraform resources in the GitOps-way.
+With the power of Flux together with Terraform, TF-controller allows you to GitOps everything, in the Kubernetes and
 Terraform universe, at your own pace.
 
-"At your own pace" means you don't need to GitOps-ify everything at once. 
+"At your own pace" means you don't need to GitOps-ify everything at once.
 
-TF-controller comes with many GitOps models that allow you to: 
+TF-controller comes with many GitOps models that allow you to:
   1. **Full GitOps Automation Model:** GitOps your Terraform resources from the provision steps to the enforcement steps, like a whole EKS cluster.
-  2. **Hybrid GitOps Automation Model:** GitOps parts of your existing infrastructure resources. For example, you have an existing EKS cluster. 
-     You can choose to GitOps only its nodegroup, or its security group. 
+  2. **Hybrid GitOps Automation Model:** GitOps parts of your existing infrastructure resources. For example, you have an existing EKS cluster.
+     You can choose to GitOps only its nodegroup, or its security group.
   3. **State Enforcement Model:** You have a TFSTATE file, and you'd like to use GitOps enforce it, without changing anything else.
   4. **Drift Detection Model:** You have a TFSTATE file, and you'd like to use GitOps just for drift detection, so you can decide to do things later when a drift occurs.
 
@@ -72,7 +76,7 @@ Here's a simple example of how to GitOps your Terraform resources with TF-contro
 First, we need to define a Source controller's source (`GitRepostory`, or `Bucket`), for example:
 
 ```yaml
-apiVersion: source.toolkit.fluxcd.io/v1beta1
+apiVersion: source.toolkit.phoban01.io/v1beta1
 kind: GitRepository
 metadata:
   name: helloworld
@@ -90,7 +94,7 @@ The GitOps automation mode could be enabled by setting `.spec.approvePlan=auto`.
 and automatically applied for you.
 
 ```yaml
-apiVersion: infra.contrib.fluxcd.io/v1alpha1
+apiVersion: infra.contrib.phoban01.io/v1alpha1
 kind: Terraform
 metadata:
   name: helloworld
@@ -109,7 +113,7 @@ spec:
 For the plan & manual approval workflow, please either set `.spec.approvePlan` to be the blank value, or omit the field.
 
 ```diff
-apiVersion: infra.contrib.fluxcd.io/v1alpha1
+apiVersion: infra.contrib.phoban01.io/v1alpha1
 kind: Terraform
 metadata:
   name: helloworld
@@ -128,7 +132,7 @@ Then the controller will tell you how to use field `.spec.approvePlan` to approv
 After making change and push, it will apply the plan to create real resources.
 
 ```diff
-apiVersion: infra.contrib.fluxcd.io/v1alpha1
+apiVersion: infra.contrib.phoban01.io/v1alpha1
 kind: Terraform
 metadata:
   name: hello-world
@@ -148,7 +152,7 @@ spec:
 To only run drift detection, skipping the plan and apply stages, set `.spec.approvePlan` to `disable`.
 
 ```yaml
-apiVersion: infra.contrib.fluxcd.io/v1alpha1
+apiVersion: infra.contrib.phoban01.io/v1alpha1
 kind: Terraform
 metadata:
   name: hello-world
@@ -167,7 +171,7 @@ spec:
 Drift detection is enabled by default. Use the `.spec.disableDriftDetection` field to disable:
 
 ```yaml
-apiVersion: infra.contrib.fluxcd.io/v1alpha1
+apiVersion: infra.contrib.phoban01.io/v1alpha1
 kind: Terraform
 metadata:
   name: helloworld
@@ -230,7 +234,7 @@ Note that in the case of the same variable key being passed multiple times, the 
 the lattermost instance of the key passed to `varsFrom`.
 
 ```yaml
-apiVersion: infra.contrib.fluxcd.io/v1alpha1
+apiVersion: infra.contrib.phoban01.io/v1alpha1
 kind: Terraform
 metadata:
   name: helloworld
