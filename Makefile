@@ -63,7 +63,7 @@ download-crd-deps:
 
 .PHONY: test
 test: manifests generate download-crd-deps fmt vet envtest ## Run tests.
-	DISABLE_TF_K8S_BACKEND=1 KUBEBUILDER_ASSETS="$(shell $(ENVTEST) use $(ENVTEST_K8S_VERSION) -p path)" go test ./... -coverprofile cover.out
+	DISABLE_TF_K8S_BACKEND=1 KUBEBUILDER_ASSETS="$(shell $(ENVTEST) use $(ENVTEST_K8S_VERSION) -p path)" go test -v ./controllers -coverprofile cover.out
 
 ##@ Build
 
