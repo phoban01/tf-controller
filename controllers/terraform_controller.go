@@ -507,10 +507,6 @@ terraform {
 		}
 	}
 
-	tf.SetStdout(os.Stdout)
-	tf.SetStderr(os.Stderr)
-	tf.SetLogger(&LocalPrintfer{logger: log})
-
 	log.Info("new terraform", "workingDir", workingDir)
 
 	// TODO we currently use a fork version of TFExec to workaround the forceCopy bug
